@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstdio>
+#include<string>
+#include<regex>
+
+using namespace std;
+char a[100005];
+char b[100005];
+char sub1[1000];
+char sub2[1000];
+
+int main() {
+	scanf("%s%s%s", a, sub1, sub2);
+	int len = strlen(a);
+	for (int i = 0; i < len; i++) {
+		b[len - 1 - i] = a[i];
+	}
+	b[len] = 0;
+	string pat = (string)"([a-z]*)" + sub1 + "([a-z]*)" + sub2 + "([a-z]*)";
+	regex pattern(pat);
+	int if1 = regex_match(a, pattern);
+	int if2 = regex_match(b, pattern);
+	if (if1 == 0 && if2 == 0) {
+		cout << "fantasy" << endl;
+	} else if (if1 == 1 && if2 == 1) {
+		cout << "both" << endl;
+	} else if (if1 == 1 && if2 == 0) {
+		cout << "forward" << endl;
+	} else if (if1 == 0 && if2 == 1) {
+		cout << "backward" << endl;
+	}
+}
